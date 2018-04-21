@@ -1,0 +1,29 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "App to take orders",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KarenBrant/Bamazon.git"
+  },
+  "keywords": [
+    "id",
+    "product_name",
+    "stock_quantity"
+  ],
+  "author": "Karen Brant",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KarenBrant/Bamazon/issues"
+  },
+  "homepage": "https://github.com/KarenBrant/Bamazon#readme",
+  "dependencies": {
+    "inquirer": "^5.2.0",
+    "mysql": "^2.15.0",
+    "npm": "^5.8.0"
+  }
+}
