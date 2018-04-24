@@ -180,7 +180,7 @@ function orderAgain() {
             if (order.orderMore == false) {
                 connection.end();
             } else {
-                
+                array = [];
                 listItems();
             }
     });
