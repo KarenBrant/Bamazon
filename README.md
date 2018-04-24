@@ -19,8 +19,8 @@ a prompt to order again.  A yes answer will take them back to the updated list a
 #Customer is getting ready to buy #1:
 <img width="671" alt="screen shot 2018-04-24 at 3 16 08 pm" src="https://user-images.githubusercontent.com/32180705/39210333-672a22ee-47d6-11e8-8a1b-d1580c3b3c52.png">
 
-#But the customer decides not to confirm the order and the apllication is exited.
+#But the customer decides not to confirm the order and the application is exited.
 <img width="683" alt="screen shot 2018-04-24 at 3 16 27 pm" src="https://user-images.githubusercontent.com/32180705/39210417-9eefc2ba-47d6-11e8-8b13-d79e2a85d406.png">
 
-#The customer tries to order more #6:
+#The customer tries to order more #6, but there is insufficient quantity:
 <img width="701" alt="screen shot 2018-04-24 at 3 48 21 pm" src="https://user-images.githubusercontent.com/32180705/39210543-0e52213e-47d7-11e8-890c-79d86da0f5c9.png">
