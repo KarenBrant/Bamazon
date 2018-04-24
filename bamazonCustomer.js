@@ -1,6 +1,8 @@
+// Require mysql and inquirer
 var mysql = require("mysql");
 var inquirer = require('inquirer');
 
+// connect to Sequel Pro
 var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
@@ -18,10 +20,12 @@ connection.connect(function(err) {
     // console.log("connected as id " + connection.threadId + "\n");  
 });
 
-
+// Global variables to hold the table information
 var array = [];
 var chgArray = [];
 
+listItems();
+// Function to print all of the table information
 function listItems() {
 
     connection.query("SELECT * FROM products", function(err, results) {
@@ -33,25 +37,26 @@ function listItems() {
         "  Price: " + results[i].price + "\n"); 
         
     }
-    console.log(array);
+    console.log("Welcome to Bamazon!!  Please browse all of the products below and follow instructions in order to buy someting.\n")
+    console.log(array + "\n");
     idSearch();
     });
          
 }
 
-listItems();
 
 var amt = 0;
 var prodID = 0;
 var getAmt = 0;
 
+// Function to get the ID and amount of product that the person wants to buy
 function idSearch() {
     inquirer
         .prompt([
         {
             name: "idNum",
             type: "input",
-            message: "What product (by id) do you want to buy?",
+            message: "What product (by id) would you like to buy?",
             validate: function(value) {
             if (isNaN(value) === false) {
                 return true;
@@ -100,6 +105,7 @@ function idSearch() {
         });
 }
 
+// Function to confirm the order
 function confirmOrder() {
     
     inquirer.prompt([
@@ -112,7 +118,7 @@ function confirmOrder() {
     
         ]).then(function(order) {
             if (order.orderPlace == false) {
-                return false;
+                connection.end();
             } else {
                 
                 updateProd();
@@ -120,7 +126,7 @@ function confirmOrder() {
     });
 }
 
-
+// Function to update the stock quantity after the purchase
 function updateProd() {
     
     console.log("Updating an item...\n");
@@ -141,6 +147,7 @@ function updateProd() {
     });
 }
 
+// Function to show the changes (stock quantity is included)
 function listChgs() {
 
     connection.query("SELECT * FROM products", function(err, results) {
@@ -148,16 +155,17 @@ function listChgs() {
     // Log all results of the SELECT statement
     for (var i = 0; i < results.length; i++) {
         chgArray.push("ID: " + results[i].id + 
-        "  Product Name: " + results[i].product_name +
-        "  Stock Quantity: " + results[i].stock_quantity +
-        "  Price: " + results[i].price + "\n"); 
+        "|| Product Name: " + results[i].product_name +
+        "|| Stock Quantity: " + results[i].stock_quantity +
+        "|| Price: " + results[i].price + "\n"); 
         
     }
-    console.log(chgArray);
+    console.log("\n Array of products with changed stock: " + chgArray);
     orderAgain();
     });          
 }
 
+// Function to determine if the customer wants to order again or not
 function orderAgain() {
     
     inquirer.prompt([
