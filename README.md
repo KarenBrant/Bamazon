@@ -16,7 +16,7 @@ a prompt to order again.  A yes answer will take them back to the updated list a
 #Order confirmed with updated stock quantity:
 <img width="896" alt="screen shot 2018-04-24 at 3 13 01 pm" src="https://user-images.githubusercontent.com/32180705/39210236-1a20a4fa-47d6-11e8-8392-de4c7c778c14.png">
 
-#Customer is getting to buy #1:
+#Customer is getting ready to buy #1:
 <img width="671" alt="screen shot 2018-04-24 at 3 16 08 pm" src="https://user-images.githubusercontent.com/32180705/39210333-672a22ee-47d6-11e8-8a1b-d1580c3b3c52.png">
 
 #But the customer decides not to confirm the order and the apllication is exited.
