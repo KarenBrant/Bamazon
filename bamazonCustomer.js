@@ -1,9 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require('inquirer');
 
-var prodID = "";
-var prodAmount = 0;
-
 var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
@@ -23,11 +20,12 @@ connection.connect(function(err) {
 });
 
 
-var productArr = [];
+var array = [];
+var chgArray = [];
 // var amt = 0;
 // var prodID = 0;
 
-function listItems(array) {
+function listItems() {
 
     connection.query("SELECT * FROM products", function(err, results) {
     if (err) throw err;
@@ -45,7 +43,7 @@ function listItems(array) {
     // return array;           
 }
 
-var listArray = listItems(productArr);
+listItems();
 // console.log("listarray: " + listArray);
 var amt = 0;
 var prodID = 0;
@@ -146,19 +144,34 @@ var getID = 0;
                     res[i].id +
                     " || Product name: " +
                     res[i].product_name +
+                    " || Stock quantity: " +
+                    res[i].stock_quantity +
                     " || Amount to buy: " +
                     answer.quant
                 );
+                prodID = res[i].id;
               }
-              confirmOrder();
+              amt = answer.quant;
+              if (amt > res.stock_quantity){
+                  console.log ("Insufficient quantity");
+                } else {
+                    getAmt = res.stock_quantity - amt;
+                    confirmOrder();
+              }
+            //   confirmOrder();
+            //   updateProd();
+
+            //   console.log ("amt: " + amt);
+            //   console.log ("prodID: " + prodID);
+            //   return amt, prodID;
             });
           });
       }
 
     function confirmOrder() {
-        // console.log("amt in updateProd: " + amt);
-        // console.log("prodID in updateProd: " + prodID);
-
+        console.log("amt in confirm: " + amt);
+        console.log("prodID in confirm: " + prodID);
+        
         inquirer.prompt([
             {
                 type: "confirm",
@@ -173,14 +186,14 @@ var getID = 0;
                 } else {
                     // console.log("amt in updateProd: " + amt);
                     // console.log("prodID in updateProd: " + prodID);
-                    updateProd();
+                updateProd();
                 }
         });
     }
 
 
-
-function updateProd(amt, prodID) {
+function updateProd() {
+    console.log("amt in update function: " + amt);
     console.log("prodID in update function" + prodID);
     console.log("Updating an item...\n");
     var query = connection.query(
@@ -194,9 +207,30 @@ function updateProd(amt, prodID) {
 
       function(err, results) {
         if (err) throw err;
-        // console.log("New qty: " + results.affectedrows);
-        console.log(results.product_name + " item updated!\n");
-      }
-    );
+        // for (var i = 0; i < results.length; i++) {
+        //     console.log(results[i].product_name + " item updated!\n");
+
+        // }
+        console.log(results.affectedRows + " products updated");
+        listChgs();
+    });
+}
+
+function listChgs() {
+
+    connection.query("SELECT * FROM products", function(err, results) {
+    if (err) throw err;
+    // Log all results of the SELECT statement
+    for (var i = 0; i < results.length; i++) {
+        chgArray.push("ID: " + results[i].id + 
+        "  Product Name: " + results[i].product_name +
+        "  Stock Quantity" + results[i].stock_quantity +
+        "  Price: " + results[i].price + "\n"); 
+        
+    }
+    console.log(chgArray);
+    });
+
+    // return array;           
 }
 // connection.end();
